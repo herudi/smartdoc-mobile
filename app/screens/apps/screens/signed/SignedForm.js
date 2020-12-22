@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, Modal } from "react-native";
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
 import MyPanel from "../../../../components/MyPanel";
-import { WebView } from 'react-native-webview';
 import Entypo from "react-native-vector-icons/Entypo";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import { successColor, whiteColor, primaryColor } from "../../../../services/constant";
@@ -84,11 +83,10 @@ const SignedForm = ({
     itemTea,
     onDownloadAtt,
     onDownloadAttHistory,
+    onDownload,
     onSigned
 }) => {
     // const [itemTea, setitemTea] = useState({});
-    const [modalContent, setModalContent] = useState(false);
-
     const forwards = () => {
         if (itemTea.forwards) {
             return (
@@ -212,7 +210,7 @@ const SignedForm = ({
                     />
                 </MyPanel>
                 {
-                    itemTea.assigns !== null && 
+                    itemTea.assigns !== null &&
                     <MyPanel title="Menugaskan Kepada">
                         <View style={{ marginBottom: 16 }}>
                             {
@@ -231,9 +229,7 @@ const SignedForm = ({
                 }
                 <MyPanel title="Isi Surat">
                     <MySimpleButton
-                        onPress={() => {
-                            setModalContent(true)
-                        }}
+                        onPress={onDownload}
                         title="Lihat isi surat"
                         color={successColor}
                         iconName="eye"
@@ -259,31 +255,7 @@ const SignedForm = ({
                         }
                     />
                 </View>
-                <Modal
-                    animationType="slide"
-                    visible={modalContent}
-                    onRequestClose={() => {
-                        setModalContent(false)
-                    }}
-                >
-                    <WebView
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                        startInLoadingState={true}
-                        source={{
-                            html: `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    </head>
-                    <body style="word-wrap: break-word;">
-                        ${itemTea.body}
-                    </body>
-                    </html>
-                    ` }}
-                    />
-                </Modal>
+                
             </View> : null
     )
 }

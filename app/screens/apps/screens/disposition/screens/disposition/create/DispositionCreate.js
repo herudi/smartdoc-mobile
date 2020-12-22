@@ -1,5 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
-import { View, Alert, Dimensions } from "react-native";
+import { View, Alert, Dimensions, KeyboardAvoidingView } from "react-native";
 import MyLoading from "../../../../../../../components/MyLoading";
 import DispositionCreateForm from "./DispositionCreateForm";
 import { ScrollView } from "react-native-gesture-handler";
@@ -7,9 +7,9 @@ import { apiGet, apiPost, BASE_API } from "../../../../../../../services/api";
 import { Overlay } from "react-native-elements";
 import MyInputOutlined from "../../../../../../../components/MyInputOutlined";
 import MyButton from "../../../../../../../components/MyButton";
-import { successColor } from "../../../../../../../services/constant";
+import { successColor, whiteColor } from "../../../../../../../services/constant";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { myError, getDownloadFile } from "../../../../../../../utils/MyUtil";
+import { myError, getDownloadFile, keyboardVerticalOffset } from "../../../../../../../utils/MyUtil";
 import MyButtonMenuRight from "../../../../../../../components/MyButtonMenuRight";
 let fullwidth = Dimensions.get("window").width;
 
@@ -150,7 +150,7 @@ const DispositionCreate = ({ navigation, route }) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="position" keyboardVerticalOffset={keyboardVerticalOffset}>
             <MyLoading loading={loading}/>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
                 <DispositionCreateForm
@@ -188,7 +188,7 @@ const DispositionCreate = ({ navigation, route }) => {
                     />
                 </View>
             </Overlay>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

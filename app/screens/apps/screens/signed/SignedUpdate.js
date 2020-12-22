@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
-import { View, Alert, Dimensions } from "react-native";
+import { View, Alert, Dimensions, KeyboardAvoidingView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { apiGet, BASE_API, apiPut } from "../../../../services/api";
-import { myError, getDownloadFile } from "../../../../utils/MyUtil";
+import { myError, getDownloadFile, keyboardVerticalOffset } from "../../../../utils/MyUtil";
 import MyButtonMenuRight from "../../../../components/MyButtonMenuRight";
 import SignedForm from "./SignedForm";
 import { Overlay } from "react-native-elements";
 import MyInputOutlined from "../../../../components/MyInputOutlined";
-import { successColor } from "../../../../services/constant";
+import { successColor, whiteColor } from "../../../../services/constant";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MyButton from "../../../../components/MyButton";
 import MyLoadingCenter from "../../../../components/MyLoadingCenter";
@@ -73,6 +73,11 @@ const SignedUpdate = ({ navigation, route }) => {
     }
     const onDownloadAttHistory = async (_id) => {
         let url = BASE_API + "outgoing-mails-approval/download/attachment-approval/" + _id;
+        getDownloadFile(url, setLoading)
+    }
+
+    const onDownload = async () => {
+        let url = BASE_API + "outgoing-mails-approval/download/review-outgoing-mail/" + id;
         getDownloadFile(url, setLoading)
     }
 
@@ -172,7 +177,7 @@ const SignedUpdate = ({ navigation, route }) => {
 
     return (
         loadingInit ? <MyLoadingCenter/> : 
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="position" keyboardVerticalOffset={keyboardVerticalOffset}>
             <MyLoading loading={loading}/>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="always">
                 <SignedForm
@@ -180,6 +185,7 @@ const SignedUpdate = ({ navigation, route }) => {
                     onDownloadAtt={onDownloadAtt}
                     onSigned={onSigned}
                     onDownloadAttHistory={onDownloadAttHistory}
+                    onDownload={onDownload}
                 />
             </ScrollView>
            
@@ -211,7 +217,7 @@ const SignedUpdate = ({ navigation, route }) => {
                     />
                 </View>
             </Overlay>
-        </View>
+        </KeyboardAvoidingView>
     )
 
 }

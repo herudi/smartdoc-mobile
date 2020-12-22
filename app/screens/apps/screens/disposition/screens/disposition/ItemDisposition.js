@@ -20,12 +20,26 @@ function ItemDispositionExpandFirst({
         let url = BASE_API + "dispositions/download/attachment-follow/" + _id;
         getDownloadFile(url, setLoadingDownload);
     }
+    const getStatus = (record) => {
+        if (record.follow_up) {
+            if (record.follow_up.progress === 2) {
+                return <Text numberOfLines={1} style={[styles.subtitle, { color: successColor }]}>Selesai</Text>
+            }
+            return <Text numberOfLines={1} style={[styles.subtitle, { color: dangerColor }]}>Belum Selesai</Text>
+        } else {
+            return <Text numberOfLines={1} style={[styles.subtitle, { color: dangerColor }]}>Belum Ada</Text>
+        }
+    }
     return (
         <View style={{ flexDirection: "column" }}>
             <View activeOpacity={0.5} style={styles.cardChild}>
                 <View style={{ flex: 1, flexDirection: 'column' }}>
                     <Text numberOfLines={2} style={styles.title}>{item.structure_name}</Text>
                     <Text numberOfLines={2} style={styles.subtitle}>{item.employee_name} ~ {item.class_disposition_name}</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <Text numberOfLines={1} style={styles.subtitle}>Status : </Text>
+                        {getStatus(item)}
+                    </View>
                     <View style={{ flexDirection: "row" }}>
                         <Text numberOfLines={1} style={styles.subtitle}>Tindak Lanjut : </Text>
                         {

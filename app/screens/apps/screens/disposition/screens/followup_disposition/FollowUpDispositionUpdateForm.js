@@ -198,7 +198,7 @@ const FollowUpDispositionUpdateForm = ({
                             />
                         </MyPanel>
                         {
-                            itemData.item_follow && (
+                            !itemData.finish_follow && (
                                 <>
                                     <MyPanel title="Form Tindak Lanjut">
                                         <View style={{ marginBottom: 20 }}>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, KeyboardAvoidingView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { apiGet, BASE_API, apiPostFormDataMobile } from "../../../../services/api";
-import { myError, getDownloadFile } from "../../../../utils/MyUtil";
+import { myError, getDownloadFile, keyboardVerticalOffset } from "../../../../utils/MyUtil";
 import MyButtonMenuRight from "../../../../components/MyButtonMenuRight";
 import IncomingMailDetailForm from "./IncomingMailDetailForm";
 import MyLoadingCenter from "../../../../components/MyLoadingCenter";
 import MyLoading from "../../../../components/MyLoading";
+import { whiteColor } from "../../../../services/constant";
 
 const IncomingMailDetail = ({ navigation, route }) => {
     const { id,follow_up,status_message } = route.params;
@@ -98,7 +99,7 @@ const IncomingMailDetail = ({ navigation, route }) => {
 
     return (
         loadingInit ? <MyLoadingCenter/> : 
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="position" keyboardVerticalOffset={keyboardVerticalOffset}>
             <MyLoading loading={loading}/>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="always">
                 <IncomingMailDetailForm
@@ -110,7 +111,7 @@ const IncomingMailDetail = ({ navigation, route }) => {
                     follow_up={follow_up}
                 />
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 
 }

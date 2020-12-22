@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, KeyboardAvoidingView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { apiGet, BASE_API, apiPostFormDataMobile } from "../../../../services/api";
-import { myError, getDownloadFile } from "../../../../utils/MyUtil";
+import { myError, getDownloadFile, keyboardVerticalOffset } from "../../../../utils/MyUtil";
 import ApprovalForm from "./ApprovalForm";
 import MyButtonMenuRight from "../../../../components/MyButtonMenuRight";
 import MyLoadingCenter from "../../../../components/MyLoadingCenter";
 import MyLoading from "../../../../components/MyLoading";
+import { whiteColor } from "../../../../services/constant";
 
 const ApprovalUpdate = ({ navigation, route }) => {
     const { id } = route.params;
@@ -133,7 +134,7 @@ const ApprovalUpdate = ({ navigation, route }) => {
 
     return (
         loadingInit ? <MyLoadingCenter/> : 
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="position" keyboardVerticalOffset={keyboardVerticalOffset}>
             <MyLoading loading={loading}/>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="always">
                 <ApprovalForm
@@ -146,7 +147,7 @@ const ApprovalUpdate = ({ navigation, route }) => {
                     onDownloadAttHistory={onDownloadAttHistory}
                 />
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, KeyboardAvoidingView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { whiteColor, successColor, primaryColor } from "../../../../services/constant";
-import { myError } from "../../../../utils/MyUtil";
+import { keyboardVerticalOffset, myError } from "../../../../utils/MyUtil";
 import { getUserInfo, clearAll } from "../../../../services/storage";
 import MyLetterIcon from "../../../../components/MyLetterIcon";
 import MySimpleButton from "../../../../components/MySimpleButton";
@@ -108,17 +108,17 @@ const Profile = ({
                     "Sukses ganti password",
                     [
                         {
-                            text:"Ok",
-                            onPress:() => {
+                            text: "Ok",
+                            onPress: () => {
                                 onLogout();
                             }
                         }
                     ],
-                    {cancelable:false}
+                    { cancelable: false }
                 );
                 setLoading(false);
             } catch (error) {
-                myError(error,navigation);
+                myError(error, navigation);
                 setLoading(false);
             }
         }
@@ -126,89 +126,92 @@ const Profile = ({
     }
     return (
         loading ? <MyLoadingCenter /> :
-            <ScrollView style={{ backgroundColor: whiteColor }}>
-                <View
-                    style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        padding: 20,
-                        justifyContent: "center",
-                        lineHeight: 2
-                    }}
-                >
-                    <MyLetterIcon size={48} text={itemData.username ? itemData.username.charAt(0) : "?"} />
-                    <Text style={{ marginTop: 5 }}>{itemData.username}</Text>
-                </View>
-                <MyPanel
-                    title="Informasi"
-                >
-                    <InfoText
-                        panelStyle={{ marginBottom: 16 }}
-                        title={itemData.employee_name}
-                        iconName="user"
-                    />
-                    <MySeparator />
-                    <InfoText
-                        panelStyle={{ marginBottom: 16, marginTop: 16 }}
-                        title={itemData.position_name}
-                        iconName="staro"
-                    />
-                    <MySeparator />
-                    <InfoText
-                        panelStyle={{ marginBottom: 16, marginTop: 16 }}
-                        title={itemData.departement_name}
-                        iconName="flag"
-                    />
-                    <MySeparator />
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="height" keyboardVerticalOffset={keyboardVerticalOffset}>
+                <ScrollView style={{ backgroundColor: whiteColor }}>
+                    <View
+                        style={{
+                            flexDirection: "column",
+                            alignItems: "center",
+                            padding: 20,
+                            justifyContent: "center",
+                            lineHeight: 2
+                        }}
+                    >
+                        <MyLetterIcon size={48} text={itemData.username ? itemData.username.charAt(0) : "?"} />
+                        <Text style={{ marginTop: 5 }}>{itemData.username}</Text>
+                    </View>
+                    <MyPanel
+                        title="Informasi"
+                    >
+                        <InfoText
+                            panelStyle={{ marginBottom: 16 }}
+                            title={itemData.employee_name}
+                            iconName="user"
+                        />
+                        <MySeparator />
+                        <InfoText
+                            panelStyle={{ marginBottom: 16, marginTop: 16 }}
+                            title={itemData.position_name}
+                            iconName="staro"
+                        />
+                        <MySeparator />
+                        <InfoText
+                            panelStyle={{ marginBottom: 16, marginTop: 16 }}
+                            title={itemData.departement_name}
+                            iconName="flag"
+                        />
+                        <MySeparator />
 
-                </MyPanel>
-                <MyPanel
-                    title="Ganti Password"
-                >
-                    <MyInputOutlined
-                        ref={oldPasswordRef}
-                        placeholder="Masukan password lama"
-                        label="Password Lama"
-                        secureTextEntry
-                    />
-                    <View style={{ margin: 10 }}></View>
-                    <MyInputOutlined
-                        ref={newPasswordRef}
-                        placeholder="Masukan password baru"
-                        label="Password Baru"
-                        secureTextEntry
-                    />
-                    <View style={{ margin: 10 }}></View>
-                    <MyInputOutlined
-                        ref={newConfirmPasswordRef}
-                        placeholder="Masukan ulangi password baru"
-                        label="Ulangi Password Baru"
-                        secureTextEntry
-                    />
-                    <View style={{ margin: 10 }}></View>
-                    <MyButton
-                        onPress={onSubmit}
-                        title="Submit"
-                        color={primaryColor}
-                    />
-                </MyPanel>
-                <MyPanel
-                    containerStyle={{
-                        marginBottom: 20
-                    }}
-                    title="Authentication"
-                >
-                    <MySimpleButton
-                        onPress={onLogout}
-                        title="Logout"
-                        color={successColor}
-                        iconName="power"
-                        padding={10}
-                        fontSize={16}
-                    />
+                    </MyPanel>
+                    <MyPanel
+                        title="Ganti Password"
+                    >
+                        <MyInputOutlined
+                            ref={oldPasswordRef}
+                            placeholder="Masukan password lama"
+                            label="Password Lama"
+                            secureTextEntry
+                        />
+                        <View style={{ margin: 10 }}></View>
+                        <MyInputOutlined
+                            ref={newPasswordRef}
+                            placeholder="Masukan password baru"
+                            label="Password Baru"
+                            secureTextEntry
+                        />
+                        <View style={{ margin: 10 }}></View>
+                        <MyInputOutlined
+                            ref={newConfirmPasswordRef}
+                            placeholder="Masukan ulangi password baru"
+                            label="Ulangi Password Baru"
+                            secureTextEntry
+                        />
+                        <View style={{ margin: 10 }}></View>
+                        <MyButton
+                            onPress={onSubmit}
+                            title="Submit"
+                            color={primaryColor}
+                        />
+                    </MyPanel>
+                    <MyPanel
+                        containerStyle={{
+                            marginBottom: 20
+                        }}
+                        title="Authentication"
+                    >
+                        <MySimpleButton
+                            onPress={onLogout}
+                            title="Logout"
+                            color={successColor}
+                            iconName="power"
+                            padding={10}
+                            fontSize={16}
+                        />
 
-                </MyPanel>
-            </ScrollView>
+                    </MyPanel>
+                </ScrollView>
+            </KeyboardAvoidingView>
+
     );
 }
 

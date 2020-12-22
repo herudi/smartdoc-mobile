@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { primaryColor } from "../../services/constant";
@@ -11,6 +11,7 @@ import Notification from "./tabs/notification/Notification";
 import { apiGet } from "../../services/api";
 import { myError } from "../../utils/MyUtil";
 import { AppTabProvider } from "./AppTabContext";
+import AppContext from "../../../AppContext";
 
 
 const AppsTab = createBottomTabNavigator();
@@ -63,13 +64,13 @@ function NotifStackScreen() {
   );
 }
 function AppsStackTab({ navigation, route }) {
-  // const { fromOpenNotif, fromReceivedNotif } = useContext(AppContext);
+  const { fromReceivedNotif } = useContext(AppContext);
   const [countBadge, setCountBadge] = useState(0);
 
   useEffect(() => {
     getBadgeNotif();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fromReceivedNotif]);
 
   const getBadgeNotif = async () => {
     try {

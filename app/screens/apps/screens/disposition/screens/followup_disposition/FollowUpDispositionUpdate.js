@@ -8,7 +8,7 @@ import FollowUpDispositionUpdateForm from "./FollowUpDispositionUpdateForm";
 const FollowUpDispositionUpdate = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false);
     const [itemData, setItemData] = useState(null);
-    const { id } = route.params;
+    const { id, finish_follow } = route.params;
 
     useEffect(() => {
         init();
@@ -37,6 +37,7 @@ const FollowUpDispositionUpdate = ({ navigation, route }) => {
             }
             _data.assigns = _assigns;
             _data.item_follow = resultFollow.data;
+            _data.finish_follow = finish_follow;
             const _resultIncomingInfo = await apiGet("incoming-mails/" + _data.incoming_mail.id);
             let _dataIncoming = _resultIncomingInfo.data;
             _dataIncoming.type_name = _dataIncoming.type ? _dataIncoming.type.name : "";

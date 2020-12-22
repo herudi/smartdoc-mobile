@@ -84,6 +84,7 @@ const Home = ({ navigation }) => {
         <>
             <View style={{
                 padding: 15,
+                backgroundColor: whiteColor
             }}>
                 <View style={{
                     flexDirection: "row"

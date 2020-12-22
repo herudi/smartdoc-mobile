@@ -2,6 +2,7 @@ import { showMessageError } from "../components/MyMessage";
 import { clearAll } from "../services/storage";
 import { CommonActions } from "@react-navigation/native";
 import RNFetchBlob from "rn-fetch-blob";
+import { Platform } from "react-native";
 // import { Alert } from "react-native";
 
 export const myError = async (error,navigation) => {
@@ -83,7 +84,15 @@ export const menuFunction = [
     
 ];
 
-export const listRouteNotif = ['Approval', 'Signed', 'IncomingMail', 'Disposition'];
+export const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
+
+export const listRouteNotif = [
+    'Approval', 
+    'Signed', 
+    'IncomingMail', 
+    'Disposition', 
+    'DispositionFollowUp'
+];
 
 export const getFileName = (dispo) => {
     let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;

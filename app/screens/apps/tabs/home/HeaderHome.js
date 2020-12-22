@@ -1,25 +1,27 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import { primaryColor, whiteColor } from "../../../../services/constant";
 import MyLetterIcon from "../../../../components/MyLetterIcon";
 import Swiper from 'react-native-swiper';
+const { width } = Dimensions.get('window');
 
 const dummySlide = [
     {
         id: 1,
-        name: 'Slide 1',
-        bg: '#9DD6EB'
+        image: require('./../../../../../assets/rsm1.png')
     },
     {
         id: 2,
-        name: 'Slide 2',
-        bg: '#9DD6EB'
+        image: require('./../../../../../assets/rsm2.png')
     },
     {
         id: 3,
-        name: 'Slide 3',
-        bg: '#9DD6EB'
+        image: require('./../../../../../assets/rsm3.png')
     },
+    {
+        id: 4,
+        image: require('./../../../../../assets/rsm4.png')
+    }
 ]
 
 const HomeHeader = ({
@@ -28,28 +30,23 @@ const HomeHeader = ({
 }) => {
     return (
         <>
-            <Swiper style={{height: 200}} showsButtons={true}>
-                {
-                    dummySlide.map((o) => {
-                        return (
-                            <View style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: o.bg
-                            }}>
-                                <Text style={{
-                                    color: '#fff',
-                                    fontSize: 30,
-                                    fontWeight: 'bold'
-                                }}>{o.name}</Text>
-                            </View>
-                        )
-                    })
-                }
-            </Swiper>
+            <View style={{elevation: 4, margin: 14, borderRadius: 10, height: 200 }}>
+                <Swiper showsButtons={true}>
+                    {
+                        dummySlide.map((o, x) => {
+                            return (
+                                <Image
+                                    key={x}
+                                    style={styles.stretch}
+                                    source={o.image}
+                                />
+                            )
+                        })
+                    }
+                </Swiper>
+            </View>
             <View style={{
-                marginTop: 15,
+                marginTop: 10,
                 marginLeft: 15,
                 marginRight: 15,
                 padding: 10,
@@ -61,7 +58,7 @@ const HomeHeader = ({
                 <View style={{
                     flexDirection: "row"
                 }}>
-                    <MyLetterIcon size={48} text={name ? name.substring(0,1) : 'A'} />
+                    <MyLetterIcon size={48} text={name ? name.substring(0, 1) : 'A'} />
                     <View style={{
                         flex: 1,
                         flexDirection: "column",
@@ -85,5 +82,16 @@ const HomeHeader = ({
         </>
     )
 }
+const styles = StyleSheet.create({
+    stretch: {
+        width: width - 24,
+        height: 200,
+        borderRadius: 10,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+});
+
 
 export default HomeHeader;

@@ -5,9 +5,10 @@ import { apiLogin, BASE_API } from "../../services/api";
 import { setUserData } from "../../services/storage";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import Axios from "axios";
-import {menuFunction} from "./../../utils/MyUtil";
-import { moduleDisposition, moduleApproval, moduleSigned, moduleDispositionFollowUp, moduleIncoming } from "../../services/constant";
+import {keyboardVerticalOffset, menuFunction} from "./../../utils/MyUtil";
+import { moduleDisposition, moduleApproval, moduleSigned, moduleDispositionFollowUp, moduleIncoming, whiteColor } from "../../services/constant";
 import AppContext from "../../../AppContext";
+import { KeyboardAvoidingView } from "react-native";
 
 const Login = () => {
     const [loading,setLoading] = useState(false);
@@ -96,11 +97,13 @@ const Login = () => {
     }
     
     return (
-        <LoginForm
-            showPassword={true}
-            onSubmit={onSubmit}
-            loading={loading}
-        />
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: whiteColor }} behavior="padding" keyboardVerticalOffset={keyboardVerticalOffset}>
+            <LoginForm
+                showPassword={true}
+                onSubmit={onSubmit}
+                loading={loading}
+            />
+        </KeyboardAvoidingView>
     )
 }
 
